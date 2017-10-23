@@ -1,13 +1,115 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainBackgroundColor"
+    android:orientation="vertical"
+    android:weightSum="4"
     tools:context="com.example.miste.shirem.ModiFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="ModiFragment" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-</FrameLayout>
+        <Button
+            android:id="@+id/btnAll"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ModiButtonHeight"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="Solid"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnRainbow"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ModiButtonHeight"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="Rainbow"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnFade"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ModiButtonHeight"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="Fade"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnLoading"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ModiButtonHeight"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="Loading"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnRunning"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ModiButtonHeight"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="Running"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnLightning"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ModiButtonHeight"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="Lightning"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:id="@+id/btnBreath"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ModiButtonHeight"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="Breath"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnJoggling"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ModiButtonHeight"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="joggling"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+
+</LinearLayout>
