@@ -16,7 +16,7 @@
         android:weightSum="8">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnSearchSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0"
@@ -24,6 +24,7 @@
             android:textSize="24sp" />
 
         <ListView
+            android:id="@+id/listBoundDevices"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"

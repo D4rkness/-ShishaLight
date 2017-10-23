@@ -15,7 +15,7 @@
         android:weightSum="2">
 
         <Button
-            android:id="@+id/btnAll"
+            android:id="@+id/btnSolid"
             android:layout_width="match_parent"
             android:layout_height="@dimen/ModiButtonHeight"
             android:layout_gravity="center_vertical"

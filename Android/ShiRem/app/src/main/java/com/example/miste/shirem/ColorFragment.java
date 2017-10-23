@@ -3,9 +3,11 @@ package com.example.miste.shirem;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.larswerkman.holocolorpicker.OpacityBar;
@@ -20,8 +22,6 @@ import com.larswerkman.holocolorpicker.ValueBar;
 public class ColorFragment extends Fragment {
 
     private ColorPicker picker;
-    private SVBar svBar;
-    private OpacityBar opacityBar;
     private View customView;
 
     public ColorFragment() {
@@ -35,6 +35,7 @@ public class ColorFragment extends Fragment {
         // Inflate the layout for this fragment
         customView = inflater.inflate(R.layout.fragment_color, container, false);
         setUpColorWheel();
+        initBtn();
         return customView;
     }
 
@@ -48,10 +49,15 @@ public class ColorFragment extends Fragment {
 
     }
 
-
-    public void onColorChanged(int color) {
-        //gives the color when it's changed.
+    private  void initBtn(){
+        Button btnSend = (Button) customView.findViewById(R.id.btnSendColor);
+        btnSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ColorFragment","Got color change with color: "+picker.getColor());
+                Controller.getInstance().setColor(picker.getColor());
+            }
+        });
     }
-
 
 }
