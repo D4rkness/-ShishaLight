@@ -15,7 +15,7 @@ public class Controller {
 
     public void setColor(int color){Model.getInstance().setColor(color);}
     public void setMode(Mode mode){Model.getInstance().setMode(mode);}
-    public Set<BluetoothDevice> searchDevices(){return BluetoothService.getInstance().searchDevices();}
+    public Set<BluetoothDevice> searchDevices() throws BluetoothException {return BluetoothService.getInstance().searchDevices();}
 
 
 

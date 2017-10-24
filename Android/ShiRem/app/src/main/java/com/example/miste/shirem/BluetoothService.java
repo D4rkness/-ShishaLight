@@ -32,15 +32,24 @@ public class BluetoothService {
         Log.d("BluetoothService", "Disconnect from Bluetoothdevice");
     }
 
-    public Set<BluetoothDevice> searchDevices(){
+    public Set<BluetoothDevice> searchDevices() throws BluetoothException {
+        if(!mBluetoothAdapter.isEnabled()){
+            throw new BluetoothException(BluetoothError.BLUETOOTH_OFF);
+        }
         return mBluetoothAdapter.getBondedDevices();
     }
 
-    public void sendMode(){
+    public void sendMode() throws BluetoothException {
+        if(!isConnected){
+            throw new BluetoothException(BluetoothError.NO_CONNECTION);
+        }
         Log.d("BluetoothService", "Sending Mode");
     }
 
-    public void sendColor(){
+    public void sendColor() throws BluetoothException {
+        if(!isConnected){
+            throw new BluetoothException(BluetoothError.NO_CONNECTION);
+        }
         Log.d("BluetoothService", "Sending Mode");
     }
 

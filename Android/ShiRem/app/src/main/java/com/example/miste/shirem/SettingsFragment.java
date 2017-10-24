@@ -46,8 +46,17 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 List<String> s = new ArrayList<String>();
-                for(BluetoothDevice bt:  Controller.getInstance().searchDevices()){
-                    s.add(bt.getName());
+                try {
+                    for(BluetoothDevice bt:  Controller.getInstance().searchDevices()){
+                        s.add(bt.getName());
+                    }
+                } catch (BluetoothException e) {
+                    if(e.getErr() == BluetoothError.BLUETOOTH_OFF){
+                        // Make Toast here that bluetooth is not enasbled
+                    }else{
+                        e.printStackTrace();
+                    }
+
                 }
                 listBoundDevices.setAdapter(new ArrayAdapter<String>(getContext(), R.layout.support_simple_spinner_dropdown_item, s));
 
