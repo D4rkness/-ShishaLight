@@ -48,8 +48,12 @@ uint8_t runningCounter = 0;
 
 //////////////////////
 // Lightning
-uint8_t lightningStart;
-uint8_t lightningLenght;
+uint8_t frequency = 30;                                       // controls the interval between strikes
+uint8_t flashes = 8;                                          //the upper limit of flashes per strike
+unsigned int dimmer = 1;
+uint8_t ledstart;                                             // Starting location of a flash
+uint8_t ledlen;                                               // Length of a flash
+
 
 
 void turnOffAllLeds(boolean showLedsFlag){
@@ -99,10 +103,25 @@ void runningAnim(){
   
 }
 
-
-void rainbow_march() {                                        // The fill_rainbow call doesn't support brightness levels
-  hueRainbow++;                                                  // Increment the starting hue.
-  fill_rainbow(leds, NUM_LEDS, hueRainbow, deltahueRainbow);            // Use FastLED's fill_rainbow routine.
+void lightning(){
+  ledstart = random8(NUM_LEDS);                               // Determine starting location of flash
+  ledlen = random8(NUM_LEDS-ledstart);                        // Determine length of flash (not to go beyond NUM_LEDS-1)
+  
+  for (int flashCounter = 0; flashCounter < random8(3,flashes); flashCounter++) {
+    if(flashCounter == 0) dimmer = 5;                         // the brightness of the leader is scaled down by a factor of 5
+    else dimmer = random8(1,3);                               // return strokes are brighter than the leader
+    
+    fill_solid(leds+ledstart,ledlen,CHSV(255, 0, 255/dimmer));
+    FastLED.show();                       // Show a section of LED's
+    delay(random8(4,10));                                     // each flash only lasts 4-10 milliseconds
+    fill_solid(leds+ledstart,ledlen,CHSV(255,0,0));           // Clear the section of LED's
+    FastLED.show();
+    
+    if (flashCounter == 0) delay (150);                       // longer delay until next flash after the leader
+    
+    delay(50+random8(100));                                   // shorter delay between strokes  
+  } // for()
+   
 }
 
 
@@ -135,6 +154,10 @@ void setup() {
       btSerial.begin(9600);
       btSerial.println("init");
 }
+void rainbow_march() {                                        // The fill_rainbow call doesn't support brightness levels
+  hueRainbow ++;                                                  // Increment the starting hue.
+  fill_rainbow(leds, NUM_LEDS, hueRainbow, delayRainbow);            // Use FastLED's fill_rainbow routine.
+} 
 
 void setAllLedsWithAccColors(){
   for(int i = 0; i<NUM_LEDS; i++){
@@ -169,6 +192,7 @@ void loop(){
         int value = root["mode"];
         Serial.println(value);
         activeMode = value;
+        turnOffAllLeds(true);
       }
       btData="";
    }
@@ -200,9 +224,9 @@ void loop(){
          }
       break;
     case 5:
-        turnOffAllLeds(false);
-        leds[5] =  CRGB( accRed, accGreen, accBlue);
-        FastLED.show();
+        EVERY_N_MILLISECONDS(random8(frequency)*100) {                           // FastLED based non-blocking routine to update/display the sequence.
+         lightning();
+         }
       break;
     case 6:
         turnOffAllLeds(false);
@@ -210,9 +234,22 @@ void loop(){
         FastLED.show();
       break;
     case 7:
-        turnOffAllLeds(false);
-        leds[7] =  CRGB( accRed, accGreen, accBlue);
+    {
+        uint8_t blurAmount = dim8_raw( beatsin8(3,64, 192) );       // A sinewave at 3 Hz with values ranging from 64 to 192.
+        blur1d( leds, NUM_LEDS, blurAmount);                        // Apply some blurring to whatever's already on the strip, which will eventually go black.
+         
+        uint8_t  i = beatsin8(  9, 0, NUM_LEDS);
+        uint8_t  j = beatsin8( 7, 0, NUM_LEDS);
+        uint8_t  k = beatsin8(  5, 0, NUM_LEDS);
+          
+          // The color of each point shifts over time, each at a different speed.
+        uint16_t msTime = millis();  
+        leds[(i+j)/2] = CHSV( msTime / 29, 200, 255);
+        leds[(j+k)/2] = CHSV( msTime / 41, 200, 255);
+        leds[(k+i)/2] = CHSV( msTime / 73, 200, 255);
+        leds[(k+i+j)/3] = CHSV( msTime / 53, 200, 255);  
         FastLED.show();
+    }
       break;
     case 99:
         turnOffAllLeds(false);
