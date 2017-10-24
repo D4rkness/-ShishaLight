@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
 import com.larswerkman.holocolorpicker.OpacityBar;
@@ -54,8 +55,18 @@ public class ColorFragment extends Fragment {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("ColorFragment","Got color change with color: "+picker.getColor());
-                Controller.getInstance().setColor(picker.getColor());
+                int color = picker.getColor();
+                String hexColor = String.format("0x%06X", (0xFFFFFF & color));
+                Log.d("color",hexColor);
+                Log.d("Color Fragment","HexNumber:" + hexColor);
+                try {
+                    Controller.getInstance().setColor(hexColor);
+                } catch (BluetoothException e) {
+                    if(e.getErr() == BluetoothError.NO_CONNECTION){
+                        Toast.makeText(customView.getContext(), "Lamp not connected",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
             }
         });
     }

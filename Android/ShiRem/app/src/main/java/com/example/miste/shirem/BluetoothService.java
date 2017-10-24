@@ -5,11 +5,13 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.UUID;
-import java.util.concurrent.Semaphore;
 
 
 public class BluetoothService extends Observable{
@@ -33,7 +35,6 @@ public class BluetoothService extends Observable{
 
     public void connect(int position) throws BluetoothException {
         Log.d("BluetoothService", "Starting Connection to Bluetoothdevice");
-        //mBluetoothAdapter.getBondedDevices()
         String searchedName = boundDevicesArrayList.get(position);
         for(BluetoothDevice bt :mBluetoothAdapter.getBondedDevices()){
             if(bt.getName().equals(searchedName)){
@@ -67,11 +68,11 @@ public class BluetoothService extends Observable{
     }
 
     public void sendMode() throws BluetoothException {
-        /*
+
         if(!isConnected){
             throw new BluetoothException(BluetoothError.NO_CONNECTION);
         }
-        */
+
         int convertedModeToInt = -1;
         switch(Model.getInstance().getAccMode()){
             case SOLID:
@@ -102,29 +103,41 @@ public class BluetoothService extends Observable{
                 convertedModeToInt = 99;
                 break;
         }
-        // Hier dann als JSON verpacken
         Log.d("BluetoothService", "Sending Mode with ID: "+convertedModeToInt);
-        if(!isConnected){
-            throw new BluetoothException(BluetoothError.NO_CONNECTION);
-        }
+        JSONObject command = new JSONObject();
         try {
-            String command = convertedModeToInt+"";
-            Log.d("BluetoothService",command);
-            socket.getOutputStream().write(command.getBytes());
+            command.put("command","m");
+            command.put("mode",convertedModeToInt);
+            Log.d("BluetoothService",command.toString());
+            socket.getOutputStream().write(command.toString().getBytes());
         } catch (IOException e) {
             isConnected =false;
             setChanged();
             notifyObservers();
             throw new BluetoothException(BluetoothError.NO_CONNECTION);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
     }
 
     public void sendColor() throws BluetoothException {
-        /*
         if(!isConnected){
             throw new BluetoothException(BluetoothError.NO_CONNECTION);
         }
-        */
+        try {
+            JSONObject command = new JSONObject();
+            command.put("command","c");
+            command.put("value",Model.getInstance().getColor());
+            Log.d("BluetoothService: ","Command: "+command);
+            socket.getOutputStream().write(command.toString().getBytes());
+        } catch (IOException e) {
+            isConnected =false;
+            setChanged();
+            notifyObservers();
+            throw new BluetoothException(BluetoothError.NO_CONNECTION);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Log.d("BluetoothService", "Sending Color: "+Model.getInstance().getColor());
     }
 

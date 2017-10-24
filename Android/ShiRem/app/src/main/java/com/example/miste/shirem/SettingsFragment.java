@@ -2,6 +2,7 @@ package com.example.miste.shirem;
 
 
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -88,14 +89,26 @@ public class SettingsFragment extends Fragment implements Observer{
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (BluetoothService.getInstance().getIsConnected()) {
+            btnStatus.setBackgroundColor(Color.GREEN);
+            btnStatus.setText("Connected");
+        } else {
+            btnStatus.setBackgroundColor(Color.RED);
+            btnStatus.setText("No Connection");
+        }
+    }
+
+    @Override
     public void update(Observable o, Object arg) {
         Handler mainHandler = new Handler(getContext().getMainLooper());
 
         Runnable myRunnable = new Runnable() {
             @Override
             public void run() {
-                boolean isConnected = BluetoothService.getInstance().getIsConnected();
-                if (isConnected) {
+
+                if (BluetoothService.getInstance().getIsConnected()) {
                     btnStatus.setBackgroundColor(Color.GREEN);
                     btnStatus.setText("Connected");
                 } else {

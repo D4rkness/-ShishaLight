@@ -8,26 +8,23 @@ import android.util.Log;
 
 public class Model {
 
-    private int color;
+    private String color;
     private Mode accMode;
     private static Model instance;
 
     private Model(){
-        color = 0;
+        color = "0x000000";
         accMode = Mode.SOLID;
     }
 
-    public void setColor(int color){
+    public void setColor(String color) throws BluetoothException {
         this.color = color;
         Log.d("Model","Color changed to: "+color);
-        try {
-            BluetoothService.getInstance().sendColor();
-        } catch (BluetoothException e) {
-            e.printStackTrace();
-        }
+        BluetoothService.getInstance().sendColor();
+
     }
 
-    public int getColor(){
+    public String getColor(){
         return color;
     }
 
