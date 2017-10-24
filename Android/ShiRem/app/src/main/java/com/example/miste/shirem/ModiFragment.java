@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 
 /**
@@ -41,56 +42,96 @@ public class ModiFragment extends Fragment {
         btnSolid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Controller.getInstance().setMode(Mode.SOLID);
+                try {
+                    Controller.getInstance().setMode(Mode.SOLID);
+                } catch (BluetoothException e) {
+                    Toast.makeText(customView.getContext(),
+                            "No Connection", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         btnRainbow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Controller.getInstance().setMode(Mode.RAINBOW);
+                try {
+                    Controller.getInstance().setMode(Mode.RAINBOW);
+                } catch (BluetoothException e) {
+                    Toast.makeText(customView.getContext(),
+                            "No Connection", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         btnFade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Controller.getInstance().setMode(Mode.FADE);
+                try {
+                    Controller.getInstance().setMode(Mode.FADE);
+                } catch (BluetoothException e) {
+                    Toast.makeText(customView.getContext(),
+                            "No Connection", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         btnLoading.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Controller.getInstance().setMode(Mode.LOADING);
+                try {
+                    Controller.getInstance().setMode(Mode.LOADING);
+                } catch (BluetoothException e) {
+                    Toast.makeText(customView.getContext(),
+                            "No Connection", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         btnRunning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Controller.getInstance().setMode(Mode.RUNNING);
+                try {
+                    Controller.getInstance().setMode(Mode.RUNNING);
+                } catch (BluetoothException e) {
+                    Toast.makeText(customView.getContext(),
+                            "No Connection", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         btnLightning.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Controller.getInstance().setMode(Mode.LIGHTNING);
+                try {
+                    Controller.getInstance().setMode(Mode.LIGHTNING);
+                } catch (BluetoothException e) {
+                    Toast.makeText(customView.getContext(),
+                            "No Connection", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         btnBreath.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Controller.getInstance().setMode(Mode.BREATH);
+                try {
+                    Controller.getInstance().setMode(Mode.BREATH);
+                } catch (BluetoothException e) {
+                    Toast.makeText(customView.getContext(),
+                            "No Connection", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
         btnJoggling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Controller.getInstance().setMode(Mode.JOGGLING);
+                try {
+                    Controller.getInstance().setMode(Mode.JOGGLING);
+                } catch (BluetoothException e) {
+                    Toast.makeText(customView.getContext(),
+                            "No Connection", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

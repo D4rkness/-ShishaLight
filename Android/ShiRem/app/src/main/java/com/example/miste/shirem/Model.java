@@ -20,15 +20,21 @@ public class Model {
     public void setColor(int color){
         this.color = color;
         Log.d("Model","Color changed to: "+color);
+        try {
+            BluetoothService.getInstance().sendColor();
+        } catch (BluetoothException e) {
+            e.printStackTrace();
+        }
     }
 
     public int getColor(){
         return color;
     }
 
-    public void setMode(Mode mode){
+    public void setMode(Mode mode) throws BluetoothException {
         Log.d("Model","Mode changed to: " + mode.toString());
         this.accMode = mode;
+        BluetoothService.getInstance().sendMode();
     }
 
     public Mode getAccMode(){
