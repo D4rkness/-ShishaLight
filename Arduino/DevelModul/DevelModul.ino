@@ -20,8 +20,8 @@ boolean idle = false; // Flag to set the State Machine to idle, when a Mode with
 
 ///////////////////////
 // Pins for the Bluetooth Modul
-#define rxPin 10
-#define txPin 11
+#define rxPin 11
+#define txPin 10
 SoftwareSerial btSerial(rxPin, txPin);
 String btData;
 

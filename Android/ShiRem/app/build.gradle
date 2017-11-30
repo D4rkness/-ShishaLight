@@ -21,6 +21,7 @@ android {
 
 dependencies {
     compile 'com.larswerkman:HoloColorPicker:1.5'
+    compile 'com.jaredrummler:colorpicker:1.0.1'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -30,4 +31,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
 
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 }

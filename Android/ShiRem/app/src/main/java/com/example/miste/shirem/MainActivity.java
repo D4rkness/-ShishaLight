@@ -18,7 +18,10 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import com.jaredrummler.android.colorpicker.ColorPickerDialogListener;
+import com.larswerkman.holocolorpicker.ColorPicker;
+
+public class MainActivity extends AppCompatActivity implements ColorPickerDialogListener {
 
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -49,6 +52,16 @@ public class MainActivity extends AppCompatActivity {
         selfPaintFragment = new SelfPaintFragment();
         settingsFragment = new SettingsFragment();
 
+
+    }
+
+    @Override
+    public void onColorSelected(int dialogId, int color) {
+        selfPaintFragment.onColorSelected(color);
+    }
+
+    @Override
+    public void onDialogDismissed(int dialogId) {
 
     }
 

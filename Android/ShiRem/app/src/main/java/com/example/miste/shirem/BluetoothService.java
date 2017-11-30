@@ -141,11 +141,11 @@ public class BluetoothService extends Observable{
         Log.d("BluetoothService", "Sending Color: "+Model.getInstance().getColor());
     }
 
-    /* Not implemented yet
-        Send Painting
+
         public void sendPainting(){
+
         }
-     */
+
 
     public boolean getIsConnected(){
         return isConnected;

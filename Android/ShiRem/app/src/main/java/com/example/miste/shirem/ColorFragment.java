@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -20,11 +21,10 @@ import com.larswerkman.holocolorpicker.ValueBar;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ColorFragment extends Fragment {
+public class ColorFragment extends Fragment implements View.OnTouchListener{
 
     private ColorPicker picker;
     private View customView;
-
     public ColorFragment() {
         // Required empty public constructor
     }
@@ -50,6 +50,7 @@ public class ColorFragment extends Fragment {
 
     }
 
+
     private  void initBtn(){
         Button btnSend = (Button) customView.findViewById(R.id.btnSendColor);
         btnSend.setOnClickListener(new View.OnClickListener() {
@@ -71,4 +72,8 @@ public class ColorFragment extends Fragment {
         });
     }
 
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return false;
+    }
 }
