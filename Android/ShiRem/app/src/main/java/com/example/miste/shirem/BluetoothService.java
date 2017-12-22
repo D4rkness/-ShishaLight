@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -142,9 +143,22 @@ public class BluetoothService extends Observable{
     }
 
 
-        public void sendPainting(){
+    public void sendPainting(){
+        JSONObject command = new JSONObject();
+        JSONArray colorArray = new JSONArray();
+        try {
+            command.put("command", "p");
 
+            for(int i = 0; i < Model.getInstance().getColorContainer().length;i++){
+                colorArray.put(Model.getInstance().getColorContainer()[i]);
+            }
+            command.put("value",colorArray);
+            Log.d("Bluetoothservice: ","Paintingval "+ command);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
+    }
 
 
     public boolean getIsConnected(){

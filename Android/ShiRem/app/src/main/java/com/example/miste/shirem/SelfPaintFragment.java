@@ -21,7 +21,7 @@ public class SelfPaintFragment extends Fragment{
     DrawField dField;
     View myView;
     Button colorBtn;
-
+    ColorPickerDialog colorPickerDialog;
     public SelfPaintFragment() {
         // Required empty public constructor
     }
@@ -39,15 +39,12 @@ public class SelfPaintFragment extends Fragment{
         dField = (DrawField) myView.findViewById(R.id.drawField);
         colorBtn = (Button) myView.findViewById(R.id.btnColorDraw);
         colorBtn.setBackgroundColor(Model.getInstance().getAccDrawColor());
+        colorPickerDialog = new ColorPickerDialog();
         colorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ColorPickerDialog.newBuilder()
-                        .setDialogType(ColorPickerDialog.TYPE_CUSTOM)
-                        .setAllowPresets(true)
-                        .setDialogId(0)
-                        .setShowAlphaSlider(false)
+                colorPickerDialog.newBuilder()
+                        .setColor(Model.getInstance().getAccDrawColor())
                         .show(getActivity());
             }
         });
@@ -66,6 +63,14 @@ public class SelfPaintFragment extends Fragment{
             public void onClick(View v) {
                 Model.getInstance().resetFieldColor();
                 dField.invalidate();
+            }
+        });
+
+        Button send = (Button) myView.findViewById(R.id.btnDrawSend);
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Controller.getInstance().sendPainting();
             }
         });
 

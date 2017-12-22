@@ -18,6 +18,7 @@ public class Controller {
     public void setMode(Mode mode) throws BluetoothException {Model.getInstance().setMode(mode);}
     public ArrayList<String> searchDevices() throws BluetoothException {return BluetoothService.getInstance().searchDevices();}
     public void connect(int position) throws BluetoothException {BluetoothService.getInstance().connect(position);}
+    public void sendPainting(){BluetoothService.getInstance().sendPainting();}
 
 
     public static Controller getInstance(){
